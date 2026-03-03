@@ -1,6 +1,3 @@
-Based on the structure of your **Banking Analytics** repository and the contents of the **Restaurant Analytics** repository, here is a professional `README.md` file formatted to match your previous work.
-
----
 
 # 🍴 Databricks LakeFlow Declarative Pipelines — Restaurant Analytics Project
 
@@ -166,6 +163,14 @@ Going beyond transaction numbers, this page utilizes the **Reviews** and **Custo
 * **Live Feedback Feed**: A filtered table showing the most recent reviews, allowing for immediate follow-up on negative experiences.
 
 ![Dashboard2](./assets/customer_review_analysis_dashboard.png)
+
+---
+
+## ⚙️ Databricks Genie
+
+Databricks Geneie is used to generate Intearactive prompt like insigths generated from Databricks Genie for Customer 360 Genie Workspace
+
+![Genie](./assets/customer_360_genie_space.png)
 
 ---
 
