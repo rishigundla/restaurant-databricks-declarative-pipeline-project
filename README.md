@@ -71,7 +71,7 @@ The project uses a synthetic restaurant dataset structured as follows:
 
 Files are incrementally ingested using **Auto Loader** and processed through the DLT pipeline.
 
-![Restaurant Dataset](./datasets/)
+[Get the Project Datasets](./datasets/)
 
 ---
 
@@ -176,18 +176,27 @@ Databricks Genie provides a **Conversational AI Workspace**, allowing users to g
 ```text
 restaurant-databricks-declarative-pipeline-project/
 │
-├── assets/                                   # Architecture, pipeline & dashboard screenshots
-│   ├── architechure.png
-│   ├── restaurant_dlt_project_pipeline.png
-│   ├── restaurant_dlt_project_workflow.png
-│   └── Restaurant Analytics Dashboard.png
+├── assets/                                    # Architecture, pipeline & dashboard screenshots
+│   ├── customer_360_genie_space.png           # Genie workspace visualization
+│   ├── customer_review_analysis_dashboard.png # Review sentiment dashboard
+│   ├── overall_performance_insights_dashboard.png # Executive summary dashboard
+│   ├── restaurant_dlt_architecture.png        # Medallion architecture diagram
+│   ├── restaurant_dlt_pipeline_project.png    # DLT pipeline lineage view
+│   └── restaurant_project_workflow.png        # Workflow orchestration diagram
 │
-├── 00_landing_layer.py                        # Auto Loader + Landing DLT tables
-├── 01_bronze_layer.py                         # Bronze cleansing logic + expectations
-├── 02_silver_layer.py                         # Silver transformations (Orders/Menu)
-├── 02_silver_scd_layer.py                     # SCD Type-1 & Type-2 logic (Staff/Menu changes)
-├── 03_gold_layer.py                           # Gold materialized views & KPIs
+├── datasets/                                  # Synthetic restaurant source data
+│   ├── customers/                             # Demographic & loyalty data
+│   ├── menu_items/                            # Item categories & pricing
+│   ├── orders/                                # Transactional order records
+│   ├── restaurants/                           # Location & capacity metadata
+│   └── reviews/                               # Customer feedback & ratings
 │
-└── README.md
+├── notebooks/                                 # Databricks declarative pipeline logic
+│   ├── 01_bronze_layer.py                     # Auto Loader ingestion & expectations
+│   ├── 02_silver_layer.py                     # Core transformations (Orders/Menu)
+│   ├── 02_silver_layer_fact_reviews_sql.sql   # SQL-based review enrichment
+│   └── 03_gold_layer.py                       # Materialized views & business KPIs
+│
+└── README.md                                  # Project documentation
 
 ```
