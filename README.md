@@ -1,26 +1,23 @@
-
 # 🍴 Databricks LakeFlow Declarative Pipelines — Restaurant Analytics Project
 
 This repository showcases a complete **end-to-end Restaurant Analytics pipeline** built using **Databricks LakeFlow Declarative Pipelines (DLT)** and **Workflows**, following the modern Lakehouse Medallion Architecture.
 
-The project demonstrates how to design a **reliable, declarative, and production-ready ETL pipeline** that ingests restaurant orders, menu metadata, and customer feedback, processes it using DLT, and powers BI dashboards through Gold-layer materialized views.
+The project demonstrates how to design a **reliable, declarative, and production-ready ETL pipeline** that ingests restaurant orders, menu metadata, and customer feedback, processes it using DLT, and powers AI-driven BI dashboards through Gold-layer materialized views.
 
 ---
 
 ## 🏗️ LakeFlow Architecture
 
+This architecture outlines the full data lifecycle:
+
+* **Auto Loader Ingestion**: Scalable landing zone for incremental data arrival.
+* **DLT Pipeline**: Automated handling of Bronze → Silver → Gold transformations.
+* **Data Quality Enforcement**: Built-in governance through **DLT Expectations**.
+* **Business Aggregations**: Real-time KPI generation for restaurant performance.
+* **Customer 360 Genie Workspace**: Interactive, AI-powered natural language insights.
+* **Unified Governance**: Managed via **Unity Catalog**.
+
 ![DLT Pipeline](./assets/restaurant_dlt_architecture.png)
-
-This architecture outlines the full lifecycle:
-
-* **Auto Loader ingestion** (Landing zone)
-* **DLT pipeline** handling Bronze → Silver → Gold transformations
-* **Data quality enforcement** through expectations
-* **Business aggregations** for restaurant performance
-* **Dashboard consumption**
-* **Workflow-based orchestration**
-* **Customer 360 Genie Workspace**
-* **Unified governance with Unity Catalog**
 
 ---
 
@@ -31,28 +28,20 @@ This pipeline combines **continuous streaming ingestion** and **incremental tran
 * **Streaming Tables (Landing → Bronze → Silver):** All early-stage transformations use `spark.readStream` and DLT streaming tables, enabling the pipeline to automatically process new orders and reservation files as they arrive in the cloud landing zone.
 * **Materialized Views (Gold Layer):** The Gold layer is built using DLT Materialized Views, which maintain pre-aggregated, analytics-ready datasets (e.g., daily revenue, top-selling items) that refresh efficiently as upstream streaming tables update.
 
-This design ensures high freshness, low latency, and strong reliability from raw transaction data → business insights.
+This design ensures high freshness, low latency, and strong reliability from raw transaction data to business insights.
 
 ---
 
 ## 🚀 Project Overview
 
-This project simulates a restaurant data engineering workflow using:
+This project simulates a high-velocity restaurant data engineering workflow using:
 
-* **Streaming ingestion** of order transactions and menu master data
-* **Cleansing & validation** using expectations (e.g., non-null order IDs, valid price ranges)
-* **Transformations & derived attributes** (order value, peak hour flags, prep time metrics)
-* **Business reporting layer** via **materialized views** - **Automated orchestration** through **Workflows** - **Interactive analytics** via Databricks AI/BI Dashboard
-* **Customer 360 Genie Workspace** Intearactive prompt like insigths generated from Databricks Genie
-
-This project uses a fully streaming Lakehouse pipeline where:
-
-* **Landing Layer → Streaming Tables (Auto Loader)**
-* **Bronze Layer → Streaming Tables**
-* **Silver Layer → Streaming Tables**
-* **Gold Layer → Materialized Views (MV)**
-
-All transformations up to Gold run incrementally using **DLT Streaming Tables**, ensuring the pipeline remains live, scalable, and ready for near–real-time restaurant operations analytics.
+* **Streaming Ingestion**: Order transactions and menu master data.
+* **Cleansing & Validation**: Expectations (e.g., non-null order IDs, valid price ranges).
+* **Feature Engineering**: Derived attributes (order value, peak hour flags, prep time metrics).
+* **Intelligent Reporting**: Business layer via **Materialized Views**.
+* **Automated Orchestration**: Production scheduling through **Workflows**.
+* **Interactive Analytics**: Databricks AI/BI Dashboard & **Genie Workspace** for prompt-based insights.
 
 ---
 
@@ -60,25 +49,25 @@ All transformations up to Gold run incrementally using **DLT Streaming Tables**,
 
 | Layer | Technology |
 | --- | --- |
-| Ingestion | Databricks Auto Loader |
-| Processing | LakeFlow — Delta Live Tables (DLT) |
-| Storage | Databricks Volumes |
-| Governance | Unity Catalog |
-| Orchestration | Databricks Workflows |
-| BI Reporting | Databricks AI/BI Dashboard |
-| Intearactive Prompt based Insights | Databricks Genie |
+| **Ingestion** | Databricks Auto Loader |
+| **Processing** | LakeFlow — Delta Live Tables (DLT) |
+| **Storage** | Databricks Volumes / Delta Lake |
+| **Governance** | Unity Catalog |
+| **Orchestration** | Databricks Workflows |
+| **BI Reporting** | Databricks AI/BI Dashboard |
+| **AI Insights** | Databricks Genie (Natural Language) |
 
 ---
 
 ## 🗂️ Dataset Description
 
-The project uses a synthetic restaurant dataset containing:
+The project uses a synthetic restaurant dataset structured as follows:
 
-* **Customers**: Contains demographic information, loyalty program status, and historical engagement data.
-* **Menu Items**: Details the restaurant's offerings, including item categories, descriptions, and pricing structures for historical tracking.
-* **Orders**: Captures transaction-level data including order IDs, timestamps, quantities, and total amounts.
-* **Restaurants**: Metadata regarding specific locations, including restaurant names, addresses, and operational capacities.
-* **Reviews**: Customer feedback and ratings, providing data for sentiment analysis and service quality metrics.
+* **Customers**: Demographic information, loyalty status, and historical engagement.
+* **Menu Items**: Offerings, categories, and pricing structures for historical tracking.
+* **Orders**: Transaction-level data including IDs, timestamps, quantities, and totals.
+* **Restaurants**: Location metadata, including addresses and operational capacities.
+* **Reviews**: Feedback and star ratings for sentiment analysis and quality metrics.
 
 Files are incrementally ingested using **Auto Loader** and processed through the DLT pipeline.
 
@@ -90,24 +79,30 @@ Files are incrementally ingested using **Auto Loader** and processed through the
 
 ### 🥉 Bronze — *Streaming Table*
 
-* Ingested via Auto Loader (`cloudFiles`)
-* Continuous streaming updates from raw CSV landing zones
-* Expectations applied on-the-fly to ensure raw data integrity
+* Ingested via Auto Loader (`cloudFiles`).
+* Continuous streaming updates from raw CSV landing zones.
+* Expectations applied on-the-fly to ensure raw data integrity.
 
 ### 🥈 Silver — *Streaming Table*
 
-* Live transformations (calculations, category joins, order value derivation)
-* Built on top of continuous Bronze output
+* Live transformations (tax calculations, category joins, order value derivation).
+* Built on top of continuous Bronze output.
 
 ### 🥇 Gold — *Materialized Views (MV)*
 
-* Pre-aggregated restaurant KPIs (Revenue, AOV, Peak Hours)
-* Optimized for BI dashboards
-* Automatically refreshed as upstream Streaming Tables update
+* Pre-aggregated restaurant KPIs (Revenue, AOV, Peak Hours).
+* Optimized for BI dashboards and Genie AI consumption.
+* Automatically refreshed as upstream Streaming Tables update.
 
 ---
 
-> ⭐ **Pipeline Design Summary** > - **Landing = Streaming Table (Auto Loader)** > - **Bronze = Streaming Table** > - **Silver = Streaming Table** > - **Gold = Materialized Views (MV)** >
+> ⭐ **Pipeline Design Summary**
+> * **Landing = Streaming Table (Auto Loader)**
+> * **Bronze = Streaming Table**
+> * **Silver = Streaming Table**
+> * **Gold = Materialized Views (MV)**
+> 
+> 
 > This ensures your pipeline is **fully incremental** from raw ingestion to business reporting.
 
 ---
@@ -118,9 +113,11 @@ Here is the exact pipeline executed on Databricks:
 
 The lineage shows:
 
-* **Incremental streaming ingestion** - **Bronze → Silver → SCD1/SCD2 → Gold** - **Materialized views powering dashboards** ---
+* **Incremental streaming ingestion** - **Bronze → Silver → Gold** - **Materialized views powering dashboards**
 
-![DLT Pipeline](./assets/restaurant_dlt_pipeline_project.png)
+![DLT](./assets/restaurant_dlt_pipeline_project.png)
+
+---
 
 ## ⚙️ Workflow Automation
 
@@ -166,9 +163,9 @@ Going beyond transaction numbers, this page utilizes the **Reviews** and **Custo
 
 ---
 
-## ⚙️ Databricks Genie
+## 🧞 Databricks Genie: Customer 360
 
-Databricks Geneie is used to generate Intearactive prompt like insigths generated from Databricks Genie for Customer 360 Genie Workspace
+Databricks Genie provides a **Conversational AI Workspace**, allowing users to generate interactive, prompt-based insights without writing SQL. It bridges the gap between raw data and business users through natural language processing.
 
 ![Genie](./assets/customer_360_genie_space.png)
 
